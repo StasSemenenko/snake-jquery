@@ -1,0 +1,21 @@
+body{ 
+	/* position: relative; */
+}
+
+.game{
+	width: 402px;
+	margin: auto;
+	padding: 10px;
+	border: 1px solid red;
+}
+
+.field{
+	width: 400px;
+	height: 400px;
+	border: 1px solid black;
+}
+
+.menu{	
+	padding: 10px;
+	border: 1px solid black;
+}
