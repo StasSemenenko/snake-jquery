@@ -10,12 +10,28 @@ body{
 }
 
 .field{
+	position: relative;
 	width: 400px;
 	height: 400px;
 	border: 1px solid black;
+	background-image: url("grid.png");
 }
 
 .menu{	
 	padding: 10px;
 	border: 1px solid black;
+}
+
+.snake{
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	background-color: black;
+}
+
+.red{
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	background-color: red;
 }
