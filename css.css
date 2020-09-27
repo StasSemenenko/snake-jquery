@@ -35,3 +35,10 @@ body{
 	height: 25px;
 	background-color: red;
 }
+
+.apple{
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	background-image: url("apple.png");
+}
