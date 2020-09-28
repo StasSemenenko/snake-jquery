@@ -5,6 +5,8 @@ let food = {
 	y: randomCoord()
 };
 
+let heighScore = Number(localStorage.heighScore);
+let score = 0;
 let setInt = setInterval(tick, 100);
 let lengthSnake = 3;
 // let speed = 2;
@@ -54,8 +56,11 @@ function tick() {
 					continue;
 				}	
 				if(snake[0].x == snake[b].x && snake[0].y == snake[b].y){
-					alert("You lose!");
-					document.location.reload();
+					for(let s = b; s < snake.length; s++){
+						snake[s].part.addClass("crash");
+						$(".lose").addClass("show");
+						clearInterval(setInt);
+					}
 					break;
 				}
 			}
@@ -84,8 +89,18 @@ function tick() {
 	if(food.x == snake[0].x && food.y == snake[0].y){
 		createBody();
 		moveApple();
+		score += 1;
+		if(score > heighScore){
+			heighScore = score;
+			localStorage.heighScore = heighScore;
+		}
+		drowScore();
 	}		
-	
+}
+
+function drowScore(){
+	$(".heighScore").html(heighScore);
+	$(".score").html(score);
 }
 
 function start(){
@@ -93,10 +108,11 @@ function start(){
 		createBody();
 	}
 	moveApple();
-	check();
+	handlers();
+	drowScore();
 }
 
-function check(){
+function handlers(){
 	$(".easy").click(function(){
 		console.log("easy");
 		speed = 1;
@@ -117,6 +133,9 @@ function check(){
 	});
 	$(".pause").click(function(){
 		clearInterval(setInt);
+	});
+	$(".restart").click(function(){
+		document.location.reload();
 	});
 }
 

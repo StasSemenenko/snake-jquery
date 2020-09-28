@@ -1,15 +1,17 @@
-body{ 
+body { 
 	/* position: relative; */
+	font-family: Calibri;
 }
 
-.game{
+.game {
+	position: relative;
 	width: 402px;
 	margin: auto;
 	padding: 10px;
 	border: 1px solid red;
 }
 
-.field{
+.field {
 	position: relative;
 	width: 400px;
 	height: 400px;
@@ -17,28 +19,57 @@ body{
 	background-image: url("grid.png");
 }
 
-.menu{	
+.menu {	
 	padding: 10px;
 	border: 1px solid black;
 }
 
-.snake{
+.snake {
 	position: absolute;
 	width: 25px;
 	height: 25px;
 	background-color: black;
 }
 
-.red{
+.red {
 	position: absolute;
 	width: 25px;
 	height: 25px;
 	background-color: red;
 }
 
-.apple{
+.apple {
 	position: absolute;
 	width: 25px;
 	height: 25px;
 	background-image: url("apple.png");
+}
+
+.crash {
+	background-color: red;
+}
+
+.lose {
+	position: absolute;
+	opacity: 0;
+	transition: opacity 1s;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	flex-flow: column;
+}
+
+.lose.show {
+	opacity: 0.8;
+}
+
+.lose h1 {
+	width: 100%;
+	text-align: center;
 }
