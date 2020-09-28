@@ -4,11 +4,10 @@ let food = {
 	x: randomCoord(),
 	y: randomCoord()
 };
- 
 
-
+let setInt = setInterval(tick, 100);
 let lengthSnake = 3;
-let speed = 100;
+// let speed = 2;
 
 function randomCoord(){
 	let random = Math.random() * 400;
@@ -43,37 +42,21 @@ function createBody() {
 	});
 }
 
-function check(){
-	// document.querySelector(".easy").checked = true;
-		if(document.querySelector(".medium").checked = true){
-			let qwer = document.querySelector(".medium").value;
-			console.log(qwer);
-		}
-	}
-
-setInterval(function () {
+function tick() {
 	for(let i = snake.length - 1; i >= 0; i--){
 		if(i == 0){
 			if(direction == 0) snake[i].x += 25;
 			if(direction == 1) snake[i].y -= 25;
 			if(direction == 2) snake[i].x -= 25;
 			if(direction == 3) snake[i].y += 25;
-			// for(let b of snake){
-			// 	console.log("step:",b.x);
-			// 	if(b != 0){
-			// 		if(snake[0].x == b.x && snake[0].y == b.y){
-			// 			// alert("You lose!");
-			// 			// document.location.reload();
-			// 			// console.log(snake[0].x, b.x , snake[0].y, b.y);
-			// 		}
-			// 	}
-			// }
-			for(let i = 0; i < snake.length ; i++){
-				for(let j = i + 1; j < snake.length; j++){
-					// if(snake[x].x == snake[i].x && snake[x].y == snake[i].y)
-					if (snake[i].x == snake[j].x && snake[i].y == snake[j].y){
-						console.log("Удар");
-					}
+			for(let b in snake){
+				if(b == 0){
+					continue;
+				}	
+				if(snake[0].x == snake[b].x && snake[0].y == snake[b].y){
+					alert("You lose!");
+					document.location.reload();
+					break;
 				}
 			}
 		}
@@ -102,13 +85,39 @@ setInterval(function () {
 		createBody();
 		moveApple();
 	}		
-}, speed);
+	
+}
 
 function start(){
 	for(let i = 0; i < 3; i++) {
 		createBody();
 	}
 	moveApple();
+	check();
+}
+
+function check(){
+	$(".easy").click(function(){
+		console.log("easy");
+		speed = 1;
+		clearInterval(setInt);
+		setInt = setInterval(tick, 100 / speed);
+	});
+	$(".medium").click(function(){
+		console.log("medium");
+		speed = 4;
+		clearInterval(setInt);
+		setInt = setInterval(tick, 100 / speed);
+	});
+	$(".hard").click(function(){
+		console.log("hard");
+		speed = 6;
+		clearInterval(setInt);
+		setInt = setInterval(tick, 100 / speed);
+	});
+	$(".pause").click(function(){
+		clearInterval(setInt);
+	});
 }
 
 $(document).on("keydown",function (event) {
@@ -140,4 +149,4 @@ function moveApple() {
 
 start();
 
-check();
+
