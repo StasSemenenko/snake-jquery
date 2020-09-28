@@ -5,6 +5,13 @@ let food = {
 	y: randomCoord()
 };
 
+let music ={
+	hunter: new Audio("hunter.mp3"),
+	crush: new Audio("./crash.mp3")
+}
+
+let img = new Image(25,25)
+img.src = "head.png";
 let heighScore = Number(localStorage.heighScore);
 let score = 0;
 let setInt = setInterval(tick, 100);
@@ -19,7 +26,7 @@ function randomCoord(){
 function createBody() {
 	let body = $("<div></div>");
 	body.addClass("snake");
-	body.appendTo(".field");
+	body.prependTo(".field");
 	let x = y = 0;
 	if(snake.length == 0) {
 		x = randomCoord();
@@ -60,6 +67,7 @@ function tick() {
 						snake[s].part.addClass("crash");
 						$(".lose").addClass("show");
 						clearInterval(setInt);
+						music.crush.play();
 					}
 					break;
 				}
@@ -105,6 +113,10 @@ function drowScore(){
 
 function start(){
 	for(let i = 0; i < 3; i++) {
+		if(i == 0){
+			createBody();
+			$(".snake").addClass("first");
+		}
 		createBody();
 	}
 	moveApple();
@@ -131,11 +143,15 @@ function handlers(){
 		clearInterval(setInt);
 		setInt = setInterval(tick, 100 / speed);
 	});
-	$(".pause").click(function(){
-		clearInterval(setInt);
-	});
 	$(".restart").click(function(){
-		document.location.reload();
+		// document.location.reload();
+		$(".lose").removeClass("show");
+		snake = [];
+		$(".snake").remove();
+		start();
+		$(".easy").trigger('click');
+		score = 0;
+		music.crash.play();
 	});
 }
 
@@ -143,17 +159,22 @@ $(document).on("keydown",function (event) {
 	let key = (event.keyCode ? event.keyCode : event.which);
 	if(key == 68 && direction != 2){
 		direction = 0;
+		$('.field .snake').css("transform", "rotate(0deg)");
 	}
 	if(key == 87 && direction != 3){
 		direction = 1;
+		$('.field .snake').css("transform", "rotate(270deg)");
 	}
 	if(key == 65 && direction != 0){
 		direction = 2;
+		$('.field .snake').css("transform", "rotate(180deg)");
 	}
 	if(key == 83 && direction != 1){
 		direction = 3;
+		$('.field .snake').css("transform", "rotate(90deg)");
 	}
 });
+
 
 function moveApple() {
 	food.x = randomCoord();
